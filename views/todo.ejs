@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ToDo App</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <h1>📝 My ToDo List</h1>
+
+  <form action="/add" method="POST">
+    <input type="text" name="task" placeholder="Enter a new task" required />
+    <button type="submit">Add</button>
+  </form>
+
+  <ul>
+    <% if (todos.length === 0) { %>
+      <li><span class="task-text">No tasks found.</span></li>
+    <% } else { %>
+      <% todos.forEach(todo => { %>
+        <li>
+          <span class="task-text"><%= todo.task %></span>
+          <div class="actions">
+            <form action="/delete/<%= todo.id %>" method="POST">
+              <button class="delete-btn" type="submit">Delete</button>
+            </form>
+            <a href="/edit/<%= todo.id %>">Edit</a>
+          </div>
+        </li>
+      <% }) %>
+    <% } %>
+  </ul>
+</body>
+</html>
