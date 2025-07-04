@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import pkg from "pg";
 import bodyParser from "body-parser";
+import dotenv from "dotenv";
+dotenv.config();
 
 const { Pool } = pkg;
 
@@ -18,11 +20,10 @@ app.set('views', './views');
 
 // ✅ PostgreSQL config
 const pool = new Pool({
-  user: "postgres",
-  host: "localhost",
-  database: "pdfuplod",   // ✅ Replace with your DB name
-  password: "Chandu@123", // ✅ Replace with your DB password
-  port: 5000,
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
 // ✅ Test DB connection
